@@ -37,6 +37,9 @@
         var b6 = new Sprite();
         var b7 = new Sprite();
         var b8 = new Sprite();
+        var b9 = new Sprite();
+        var b10 = new Sprite();
+        var b11 = new Sprite();
         b1.xB = 0; b1.yB = 0; b1.largB = canvas.width; b1.altB = 20; b1.corB = "#708090";barreiras.push(b1);
         b2.xB = 0; b2.yB = canvas.height - 20; b2.largB = canvas.width; b2.altB = 20; b2.corB = "#708090"; barreiras.push(b2);
         b3.xB = 0; b3.yB = 0; b3.largB = 20; b3.altB = canvas.height; b3.corB = "#708090"; barreiras.push(b3);
@@ -45,6 +48,9 @@
         b6.xB = 120; b6.yB = canvas.height - 120; b6.largB = 200; b6.altB = 20; barreiras.push(b6);
         b7.xB = canvas.width - 320; b7.yB = 100; b7.largB = 200; b7.altB = 20; barreiras.push(b7);
         b8.xB = canvas.width - 320; b8.yB = canvas.height - 120; b8.largB = 200; b8.altB = 20; barreiras.push(b8);
+        b9.xB = 200; b9.yB = canvas.height/2 - 90; b9.largB = 20; b9.altB = 180; barreiras.push(b9);
+        b10.xB = canvas.width - 220; b10.yB = canvas.height/2 - 90; b10.largB = 20; b10.altB = 180; barreiras.push(b10);
+        b11.xB = canvas.width/2 - 100; b11.yB = canvas.height/2 - 20; b11.largB = 200; b11.altB = 20; barreiras.push(b11);
       }
       criaBarreiras();
 
@@ -54,8 +60,9 @@
         ctx.fillStyle = "black";
         ctx.fillRect(0,0, tela.width, tela.height);
         ctx.font="20px Arial";
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "#1E90FF";
         ctx.fillText("Player 1: " + vidaP1, 40,40);
+        ctx.fillStyle = "#DC143C";
         ctx.fillText("Player 2: " + vidaP2, 965,40);
       }
 
