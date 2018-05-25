@@ -52,6 +52,11 @@
       function passo(t)
       {
         dt = (t - anterior)/1000;
+
+        //Move as naves
+        player1.moverNave(dt);
+        player2.moverNave(dt);
+
         limpaTela();
 
         //Desenha as barreiras
@@ -68,5 +73,86 @@
       }
 
       requestAnimationFrame(passo);
+
+      addEventListener("keydown", function(e)
+      {
+          switch (e.keyCode) {
+          //Comandos player2
+          case 37: // Seta p/ esquerda
+            player2.vx = -200;
+            player2.ang = 180;
+            e.preventDefault();
+            break;
+          case 38: // Seta p/ cima
+            player2.vy = -200;
+            player2.ang = 270;
+            e.preventDefault();
+            break;
+          case 39: // Seta p/ direita
+            player2.vx = 200;
+            player2.ang = 0;
+            e.preventDefault();
+            break;
+          case 40: // Seta p/ baixo
+            player2.vy = 200;
+            player2.ang = 90;
+            e.preventDefault();
+            break;
+          case 80: // Tecla 'P'
+            player2.vy = 200;
+            e.preventDefault();
+            break;
+
+          //Comandos player1
+          case 32: // Barra de espaço
+            break;
+          case 65: // Tecla 'A'
+            player1.vx = -200;
+            player1.ang = 180;
+            e.preventDefault();
+            break;
+          case 68: // Tecla 'D'
+            player1.vx = 200;
+            player1.ang = 0;
+            e.preventDefault();
+            break;
+          case 83: // Tecla 'S'
+            player1.vy = 200;
+            player1.ang = 90;
+            e.preventDefault();
+            break;
+          case 87: // Tecla 'W'
+            player1.vy = -200;
+            player1.ang = 270;
+            e.preventDefault();
+            break;
+          }
+      });
+
+      addEventListener("keyup", function(e)
+      {
+          //console.log(e.keyCode);
+          if (e.keyCode === 38 || e.keyCode === 40)
+          {
+            player2.vy = 0;
+            e.preventDefault();
+          }
+          if(e.keyCode === 37 || e.keyCode === 39)
+          {
+            player2.vx = 0;
+            e.preventDefault();
+          }
+          if(e.keyCode === 87 || e.keyCode === 83)
+          {
+            player1.vy = 0;
+            e.preventDefault();
+          }
+          if(e.keyCode === 65 || e.keyCode === 68)
+          {
+            player1.vx = 0;
+            e.preventDefault();
+          }
+      });
+
     </script>
   </body>

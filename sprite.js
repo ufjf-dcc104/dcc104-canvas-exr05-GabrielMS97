@@ -42,3 +42,8 @@ Sprite.prototype.desenharNave = function (ctx) {
     ctx.stroke();
     ctx.restore();
 }
+
+Sprite.prototype.moverNave = function(dt) {
+  this.x = this.x + this.vx*dt;
+  this.y = this.y + this.vy*dt;
+}
