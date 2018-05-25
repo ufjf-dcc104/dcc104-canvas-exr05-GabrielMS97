@@ -79,7 +79,33 @@
           tirosP2[i].moverNave(dt);
         }
 
-        //Verifica se houve coli com as barreiras
+        //Verifica se os tiros do player1 acertaram o player2
+        for (var i = 0; i < tirosP1.length; i++) {
+          if(tirosP1[i].acertou(player2)){
+            tirosP1[i].x = 2000;
+            tirosP1[i].y = 2000;
+            tirosP1[i].vx = 0;
+            tirosP1[i].vy = 0;
+            player2.x = 1030;
+            player2.y = 300;
+            vidaP2--;
+          }
+        }
+
+        //Verifica se os tiros do player2 acertaram o player1
+        for (var i = 0; i < tirosP2.length; i++) {
+          if(tirosP2[i].acertou(player1)){
+            tirosP2[i].x = 2000;
+            tirosP2[i].y = 2000;
+            tirosP2[i].vx = 0;
+            tirosP2[i].vy = 0;
+            player1.x = 50;
+            player1.y = 300;
+            vidaP1--;
+          }
+        }
+
+        //Verifica se houve colisão com as barreiras
         for (var i = 0; i < barreiras.length; i++) {
           if(barreiras[i].colidiuComBarreira(player1))
           {

@@ -73,3 +73,12 @@ Sprite.prototype.bateu = function (player) {
 
   return true;
 }
+
+Sprite.prototype.acertou = function (player) {
+  if (player.x + player.larg < this.x) return false;
+  if (player.x > this.x + this.larg) return false;
+  if (player.y + player.alt < this.y) return false;
+  if (player.y > this.y + this.alt) return false;
+
+  return true;
+}
