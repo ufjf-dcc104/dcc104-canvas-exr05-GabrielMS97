@@ -14,11 +14,17 @@
       var dt = anterior = 0;
       var barreiras = [];
 
+      //Variáveis das naves
+      var player1 = new Sprite();
+      var player2 = new Sprite();
+      player1.x = 50; player1.y = 300; player1.larg = 20; player1.alt = 20; player1.cor = "#1E90FF"; player1.ang = 0;
+      player2.x = 1050; player2.y = 300; player2.larg = 20; player2.alt = 20; player2.cor = "#DC143C"; player2.ang = 180;
+
       //Criando as barreiras previamente
       function criaBarreiras() {
         var b1 = new Sprite();
         var b2 = new Sprite();
-        var b3= new Sprite();
+        var b3 = new Sprite();
         var b4 = new Sprite();
         var b5 = new Sprite();
         var b6 = new Sprite();
@@ -47,9 +53,16 @@
       {
         dt = (t - anterior)/1000;
         limpaTela();
+
+        //Desenha as barreiras
         for (var i = 0; i < barreiras.length; i++) {
           barreiras[i].desenharBarreira(ctx);
         }
+
+        //Desenha as naves
+        player1.desenharNave(ctx);
+        player2.desenharNave(ctx);
+
         anterior = t;
         requestAnimationFrame(passo);
       }
