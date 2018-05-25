@@ -12,6 +12,9 @@
       var tela = document.getElementsByTagName("canvas")[0];
       var ctx = tela.getContext("2d");
       var dt = anterior = 0;
+
+      var vidaP1 = 5;
+      var vidaP2 = 5;
       var barreiras = [];
 
       //Variáveis das naves
@@ -46,6 +49,10 @@
       {
         ctx.fillStyle = "black";
         ctx.fillRect(0,0, tela.width, tela.height);
+        ctx.font="20px Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText("Player 1: " + vidaP1, 40,40);
+        ctx.fillText("Player 2: " + vidaP2, 965,40);
       }
 
       //Função principal de animação
