@@ -3,15 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>Duelo</title>
-    <!--<script src="sprite.js"></script>-->
+    <script src="sprite.js"></script>
   </head>
   <body>
     <h1>Duelo</h1>
-    <canvas id="canvas" width="1000" height="500"></canvas>
+    <canvas id="canvas" width="1100" height="600"></canvas>
     <script type="text/javascript">
       var tela = document.getElementsByTagName("canvas")[0];
       var ctx = tela.getContext("2d");
       var dt = anterior = 0;
+      var barreiras = [];
+
+      //Criando as barreiras previamente
+      function criaBarreiras() {
+        var b1 = new Sprite();
+        var b2 = new Sprite();
+        var b3= new Sprite();
+        var b4 = new Sprite();
+        var b5 = new Sprite();
+        var b6 = new Sprite();
+        var b7 = new Sprite();
+        var b8 = new Sprite();
+        b1.xB = 0; b1.yB = 0; b1.largB = canvas.width; b1.altB = 20; b1.corB = "#708090";barreiras.push(b1);
+        b2.xB = 0; b2.yB = canvas.height; b2.largB = canvas.width; b2.altB = -20; b2.corB = "#708090"; barreiras.push(b2);
+        b3.xB = 0; b3.yB = 0; b3.largB = 20; b3.altB = canvas.height; b3.corB = "#708090"; barreiras.push(b3);
+        b4.xB = canvas.width; b4.yB = 0; b4.largB = -20; b4.altB = canvas.height; b4.corB = "#708090"; barreiras.push(b4);
+        b5.xB = 120; b5.yB = 100; b5.largB = 200; b5.altB = 20; barreiras.push(b5);
+        b6.xB = 120; b6.yB = canvas.height - 120; b6.largB = 200; b6.altB = 20; barreiras.push(b6);
+        b7.xB = canvas.width - 320; b7.yB = 100; b7.largB = 200; b7.altB = 20; barreiras.push(b7);
+        b8.xB = canvas.width - 320; b8.yB = canvas.height - 120; b8.largB = 200; b8.altB = 20; barreiras.push(b8);
+      }
+      criaBarreiras();
 
       //Função que desenha a tela
       function limpaTela()
@@ -25,6 +47,9 @@
       {
         dt = (t - anterior)/1000;
         limpaTela();
+        for (var i = 0; i < barreiras.length; i++) {
+          barreiras[i].desenharBarreira(ctx);
+        }
         anterior = t;
         requestAnimationFrame(passo);
       }
