@@ -16,6 +16,10 @@
       var vidaP1 = 5;
       var vidaP2 = 5;
       var barreiras = [];
+      var cadencia1 = 0.4;
+      var cadencia2 = 0.4;
+      var tirosP1 = [];
+      var tirosP2 = [];
 
       //Variáveis das naves
       var player1 = new Sprite();
@@ -62,7 +66,18 @@
 
         //Move as naves
         player1.moverNave(dt);
+        player1.cadencia = player1.cadencia - dt ;
         player2.moverNave(dt);
+        player2.cadencia = player2.cadencia - dt ;
+
+        //Move tiros do player 1
+        for (var i = 0; i < tirosP1.length; i++) {
+          tirosP1[i].moverNave(dt);
+        }
+        //Move tiros do player 2
+        for (var i = 0; i < tirosP2.length; i++) {
+          tirosP2[i].moverNave(dt);
+        }
 
         //Verifica se houve coli com as barreiras
         for (var i = 0; i < barreiras.length; i++) {
@@ -102,6 +117,15 @@
         player1.desenharNave(ctx);
         player2.desenharNave(ctx);
 
+        //Desenha os tiros do player 1
+        for (var i = 0; i < tirosP1.length; i++) {
+          tirosP1[i].desenharTiro(ctx);
+        }
+        //Desenha os tiros do player 2
+        for (var i = 0; i < tirosP2.length; i++) {
+          tirosP2[i].desenharTiro(ctx);
+        }
+
         anterior = t;
         requestAnimationFrame(passo);
       }
@@ -133,12 +157,40 @@
             e.preventDefault();
             break;
           case 80: // Tecla 'P'
-            player2.vy = 200;
-            e.preventDefault();
+          var tiro = new Sprite();
+          if(player2.cadencia <= 0)
+          {
+            tiro.x = player2.x + player2.larg/2;
+            tiro.y = player2.y + player2.alt/2;
+            tiro.larg = 7;
+            tiro.alt = 7;
+            tiro.cor = "orange";
+            if(player2.ang === 0) {tiro.vx = 500; tiro.vy = 0;}
+            else if(player2.ang === 90) {tiro.vy = 500; tiro.vx = 0}
+            else if(player2.ang === 180) {tiro.vx = -500; tiro.vy = 0}
+            else if(player2.ang === 270) {tiro.vy = -500; tiro.vx = 0}
+            tirosP2.push(tiro);
+            player2.cadencia = cadencia2;
+          }
             break;
 
           //Comandos player1
           case 32: // Barra de espaço
+            var tiro = new Sprite();
+            if(player1.cadencia <= 0)
+            {
+              tiro.x = player1.x + player1.larg/2;
+              tiro.y = player1.y + player1.alt/2;
+              tiro.larg = 7;
+              tiro.alt = 7;
+              tiro.cor = "yellow";
+              if(player1.ang === 0) {tiro.vx = 500; tiro.vy = 0;}
+              else if(player1.ang === 90) {tiro.vy = 500; tiro.vx = 0}
+              else if(player1.ang === 180) {tiro.vx = -500; tiro.vy = 0}
+              else if(player1.ang === 270) {tiro.vy = -500; tiro.vx = 0}
+              tirosP1.push(tiro);
+              player1.cadencia = cadencia1;
+            }
             break;
           case 65: // Tecla 'A'
             player1.vx = -200;

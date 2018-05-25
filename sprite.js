@@ -13,6 +13,8 @@ function Sprite() {
   this.cor = "#1E90FF";
   this.cor2 = "#DC143C";
 
+  this.cadencia = 0.4;
+
   //Variáveis das barreiras
   this.xB = 100;
   this.yB = 100;
@@ -42,6 +44,11 @@ Sprite.prototype.desenharNave = function (ctx) {
     ctx.fill();
     ctx.stroke();
     ctx.restore();
+}
+
+Sprite.prototype.desenharTiro = function (ctx) {
+    ctx.fillStyle = this.cor;
+    ctx.fillRect(this.x, this.y, this.larg, this.alt);
 }
 
 Sprite.prototype.moverNave = function(dt) {
