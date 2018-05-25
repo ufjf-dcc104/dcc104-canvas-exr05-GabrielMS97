@@ -71,6 +71,20 @@
       {
         dt = (t - anterior)/1000;
 
+        //Verifica se alguém perdeu e chama o fim do jogo
+        if (vidaP1 <= 0) {
+          ctx.fillStyle = "#DC143C";
+          ctx.font = "Bold 70px Arial";
+          ctx.fillText("Player 2 WINS", canvas.width / 4 + 40, canvas.height / 2 - 100);
+          return;
+        }
+        else if (vidaP2 <= 0) {
+          ctx.fillStyle = "#1E90FF";
+          ctx.font = "Bold 70px Arial";
+          ctx.fillText("Player 1 WINS", canvas.width / 4 + 40, canvas.height / 2 - 100);
+          return;
+        }
+
         //Move as naves
         player1.moverNave(dt);
         player1.cadencia = player1.cadencia - dt ;
