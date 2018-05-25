@@ -56,5 +56,13 @@ Sprite.prototype.colidiuComBarreira = function (alvo) {
   if (alvo.y > this.yB + this.altB) return false;
 
   return true;
+}
 
+Sprite.prototype.bateu = function (player) {
+  if (player.x + player.larg < this.x) return false;
+  if (player.x > this.x + this.larg) return false;
+  if (player.y + player.alt < this.y) return false;
+  if (player.y > this.y + this.alt) return false;
+
+  return true;
 }
