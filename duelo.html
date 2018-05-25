@@ -125,6 +125,22 @@
           }
         }
 
+        //Verifica se houve colisão entre os tiros das naves
+        for (var i = 0; i < tirosP1.length; i++) {
+          for (var j = 0; j < tirosP2.length; j++) {
+            if(tirosP1[i].acertou(tirosP2[j])){
+              tirosP1[i].x = 2000;
+              tirosP1[i].y = 2000;
+              tirosP1[i].vx = 0;
+              tirosP1[i].vy = 0;
+              tirosP2[j].x = 2000;
+              tirosP2[j].y = 2000;
+              tirosP2[j].vx = 0;
+              tirosP2[j].vy = 0;
+            }
+          }
+        }
+
         //Verifica se houve colisão com as barreiras
         for (var i = 0; i < barreiras.length; i++) {
           if(barreiras[i].colidiuComBarreira(player1))
