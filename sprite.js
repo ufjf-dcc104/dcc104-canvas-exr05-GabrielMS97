@@ -28,10 +28,11 @@ Sprite.prototype.desenharBarreira = function (ctx) {
 
 Sprite.prototype.desenharNave = function (ctx) {
     ctx.fillStyle = this.cor;
+    //ctx.fillRect(this.x, this.y, this.larg, this.alt);
     ctx.strokeStyle = "white";
     ctx.lineWidth = 3;
     ctx.save();
-    ctx.translate(this.x, this.y);
+    ctx.translate(this.x + this.larg/2, this.y+this.alt/2);
     ctx.rotate(this.ang*Math.PI/180);
     ctx.beginPath();
     ctx.moveTo(-this.larg/2, -this.alt/2);
@@ -46,4 +47,14 @@ Sprite.prototype.desenharNave = function (ctx) {
 Sprite.prototype.moverNave = function(dt) {
   this.x = this.x + this.vx*dt;
   this.y = this.y + this.vy*dt;
+}
+
+Sprite.prototype.colidiuComBarreira = function (alvo) {
+  if (alvo.x + alvo.larg < this.xB) return false;
+  if (alvo.x > this.xB + this.largB) return false;
+  if (alvo.y + alvo.alt < this.yB) return false;
+  if (alvo.y > this.yB + this.altB) return false;
+
+  return true;
+
 }

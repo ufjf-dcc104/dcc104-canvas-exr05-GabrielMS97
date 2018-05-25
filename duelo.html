@@ -34,9 +34,9 @@
         var b7 = new Sprite();
         var b8 = new Sprite();
         b1.xB = 0; b1.yB = 0; b1.largB = canvas.width; b1.altB = 20; b1.corB = "#708090";barreiras.push(b1);
-        b2.xB = 0; b2.yB = canvas.height; b2.largB = canvas.width; b2.altB = -20; b2.corB = "#708090"; barreiras.push(b2);
+        b2.xB = 0; b2.yB = canvas.height - 20; b2.largB = canvas.width; b2.altB = 20; b2.corB = "#708090"; barreiras.push(b2);
         b3.xB = 0; b3.yB = 0; b3.largB = 20; b3.altB = canvas.height; b3.corB = "#708090"; barreiras.push(b3);
-        b4.xB = canvas.width; b4.yB = 0; b4.largB = -20; b4.altB = canvas.height; b4.corB = "#708090"; barreiras.push(b4);
+        b4.xB = canvas.width - 20; b4.yB = 0; b4.largB = 20; b4.altB = canvas.height; b4.corB = "#708090"; barreiras.push(b4);
         b5.xB = 120; b5.yB = 100; b5.largB = 200; b5.altB = 20; barreiras.push(b5);
         b6.xB = 120; b6.yB = canvas.height - 120; b6.largB = 200; b6.altB = 20; barreiras.push(b6);
         b7.xB = canvas.width - 320; b7.yB = 100; b7.largB = 200; b7.altB = 20; barreiras.push(b7);
@@ -63,6 +63,21 @@
         //Move as naves
         player1.moverNave(dt);
         player2.moverNave(dt);
+
+        for (var i = 0; i < barreiras.length; i++) {
+          if(barreiras[i].colidiuComBarreira(player1))
+          {
+            player1.x = 50;
+            player1.y = 300;
+            vidaP1--;
+          }
+          if(barreiras[i].colidiuComBarreira(player2))
+          {
+            player2.x = 1050;
+            player2.y = 300;
+            vidaP2--;
+          }
+        }
 
         limpaTela();
 
