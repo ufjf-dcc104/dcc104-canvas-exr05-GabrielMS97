@@ -12,6 +12,7 @@
       var tela = document.getElementsByTagName("canvas")[0];
       var ctx = tela.getContext("2d");
       var dt = anterior = 0;
+      var passos = 0;
 
       var vidaP1 = 5;
       var vidaP2 = 5;
@@ -20,6 +21,10 @@
       var cadencia2 = 0.4;
       var tirosP1 = [];
       var tirosP2 = [];
+      var life = [];
+      var shield = [];
+      var gun = [];
+      var bomb = [];
 
       //Variáveis das naves
       var player1 = new Sprite();
@@ -54,6 +59,13 @@
       }
       criaBarreiras();
 
+      //Função que gera aleatoriedade
+      function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
       //Função que desenha a tela
       function limpaTela()
       {
@@ -64,12 +76,46 @@
         ctx.fillText("Player 1: " + vidaP1, 40,40);
         ctx.fillStyle = "#DC143C";
         ctx.fillText("Player 2: " + vidaP2, 965,40);
+        //ctx.fillStyle = "white";
+        //ctx.fillText(passos, 600, 40);
       }
 
       //Função principal de animação
       function passo(t)
       {
         dt = (t - anterior)/1000;
+
+        //Desenha os powerUps
+        if(passos >= 600)
+        {
+          var numero = getRandomIntInclusive(1,4);
+          switch (numero) {
+            case 1:
+              var vida = new Sprite();
+              vida.x = getRandomIntInclusive(220,860); vida.y = getRandomIntInclusive(120,460);
+              vida.larg = 20; vida.alt = 20; vida.cor = "green"; life.push(vida);
+              break;
+            case 2:
+              var escudo = new Sprite();
+              escudo.x = getRandomIntInclusive(220,860); escudo.y = getRandomIntInclusive(120,460);
+              escudo.larg = 20; escudo.alt = 20; escudo.cor = "blue"; shield.push(escudo);
+              break;
+            case 3:
+              var arma = new Sprite();
+              arma.x = getRandomIntInclusive(220,860); arma.y = getRandomIntInclusive(120,460);
+              arma.larg = 20; arma.alt = 20; arma.cor = "yellow"; gun.push(arma);
+              break;
+            case 4:
+              var bomba = new Sprite();
+              bomba.x = getRandomIntInclusive(220,860); bomba.y = getRandomIntInclusive(120,460);
+              bomba.larg = 20; bomba.alt = 20; bomba.cor = "orange"; bomb.push(bomba);
+              break;
+          }
+          passos = 0;
+        }
+        else {
+          passos++;
+        }
 
         //Verifica se alguém perdeu e chama o fim do jogo
         if (vidaP1 <= 0) {
@@ -207,6 +253,20 @@
         //Desenha os tiros do player 2
         for (var i = 0; i < tirosP2.length; i++) {
           tirosP2[i].desenharTiro(ctx);
+        }
+
+        //Desenha os powerUps
+        for (var i = 0; i < life.length; i++) {
+          life[i].desenharPowerUps();
+        }
+        for (var i = 0; i < shield.length; i++) {
+          shield[i].desenharPowerUps();
+        }
+        for (var i = 0; i < gun.length; i++) {
+          gun[i].desenharPowerUps();
+        }
+        for (var i = 0; i < bomb.length; i++) {
+          bomb[i].desenharPowerUps();
         }
 
         anterior = t;

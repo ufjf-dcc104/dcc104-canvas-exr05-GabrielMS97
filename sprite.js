@@ -14,6 +14,7 @@ function Sprite() {
   this.cor2 = "#DC143C";
 
   this.cadencia = 0.4;
+  this.shield = false;
 
   //Variáveis das barreiras
   this.xB = 100;
@@ -81,4 +82,9 @@ Sprite.prototype.acertou = function (player) {
   if (player.y > this.y + this.alt) return false;
 
   return true;
+}
+
+Sprite.prototype.desenharPowerUps = function () {
+  ctx.fillStyle = this.cor;
+  ctx.fillRect(this.x, this.y, this.larg, this.alt);
 }
