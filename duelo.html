@@ -235,6 +235,20 @@
           vidaP2--;
         }
 
+        //Verifica se houve colisão com um powerUps
+        for (var i = 0; i < life.length; i++) {
+          if(life[i].bateu(player1)){
+            life[i].x = 2000;
+            life[i].y = 2000;
+            vidaP1++;
+          }
+          if(life[i].bateu(player2)){
+            life[i].x = 2000;
+            life[i].y = 2000;
+            vidaP2++;
+          }
+        }
+
         limpaTela();
 
         //Desenha as barreiras

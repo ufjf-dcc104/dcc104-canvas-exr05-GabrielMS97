@@ -14,7 +14,10 @@ function Sprite() {
   this.cor2 = "#DC143C";
 
   this.cadencia = 0.4;
+  this.cadenciaTime = 0;
   this.shield = false;
+  this.shieldTime = 0;
+  this.bomba = false;
 
   //Variáveis das barreiras
   this.xB = 100;
