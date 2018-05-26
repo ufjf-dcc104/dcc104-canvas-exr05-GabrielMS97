@@ -86,7 +86,7 @@
         dt = (t - anterior)/1000;
 
         //Desenha os powerUps
-        if(passos >= 600)
+        if(passos >= 100)
         {
           var numero = getRandomIntInclusive(1,4);
           switch (numero) {
@@ -115,6 +115,26 @@
         }
         else {
           passos++;
+        }
+
+        //Verifica tempo de Escudo
+        //Player 1
+        if (player1.shield && player1.shieldTime >= 300) {
+          player1.shieldTime = 0;
+          player1.shield = false;
+          player1.corEscudo = "white";
+        }
+        else if (player1.shield) {
+          player1.shieldTime++;
+        }
+        //Player 2
+        if (player2.shield && player2.shieldTime >= 300) {
+          player2.shieldTime = 0;
+          player2.shield = false;
+          player2.corEscudo = "white";
+        }
+        else if (player2.shield) {
+          player2.shieldTime++;
         }
 
         //Verifica se alguém perdeu e chama o fim do jogo
@@ -149,13 +169,21 @@
         //Verifica se os tiros do player1 acertaram o player2
         for (var i = 0; i < tirosP1.length; i++) {
           if(tirosP1[i].acertou(player2)){
-            tirosP1[i].x = 2000;
-            tirosP1[i].y = 2000;
-            tirosP1[i].vx = 0;
-            tirosP1[i].vy = 0;
-            player2.x = 1030;
-            player2.y = 300;
-            vidaP2--;
+              tirosP1[i].x = 2000;
+              tirosP1[i].y = 2000;
+              tirosP1[i].vx = 0;
+              tirosP1[i].vy = 0;
+              player2.x = 1030;
+              player2.y = 300;
+              if(player2.shield){
+                player2.shieldTime = 200;
+              }
+              else {
+                player2.corEscudo = "#00FFFF";
+                player2.shield = 200;
+                player2.shield = true;
+                vidaP2--;
+              }
           }
         }
 
@@ -168,7 +196,15 @@
             tirosP2[i].vy = 0;
             player1.x = 50;
             player1.y = 300;
-            vidaP1--;
+            if(player1.shield){
+              player1.shieldTime = 200;
+            }
+            else {
+              player1.corEscudo = "#00FFFF";
+              player1.shield = 200;
+              player1.shield = true;
+              vidaP1--;
+            }
           }
         }
 
@@ -214,13 +250,29 @@
           {
             player1.x = 50;
             player1.y = 300;
-            vidaP1--;
+            if(player1.shield){
+              player1.shieldTime = 200;
+            }
+            else {
+              player1.corEscudo = "#00FFFF";
+              player1.shield = 200;
+              player1.shield = true;
+              vidaP1--;
+            }
           }
           if(barreiras[i].colidiuComBarreira(player2))
           {
             player2.x = 1030;
             player2.y = 300;
-            vidaP2--;
+            if(player2.shield){
+              player2.shieldTime = 200;
+            }
+            else {
+              player2.corEscudo = "#00FFFF";
+              player2.shield = 200;
+              player2.shield = true;
+              vidaP2--;
+            }
           }
         }
 
@@ -229,13 +281,30 @@
         {
           player1.x = 50;
           player1.y = 300;
-          vidaP1--;
+          if(player1.shield){
+            player1.shieldTime = 200;
+          }
+          else {
+            player1.corEscudo = "#00FFFF";
+            player1.shield = 200;
+            player1.shield = true;
+            vidaP1--;
+          }
           player2.x = 1030;
           player2.y = 300;
-          vidaP2--;
+          if(player2.shield){
+            player2.shieldTime = 200;
+          }
+          else {
+            player2.corEscudo = "#00FFFF";
+            player2.shield = 200;
+            player2.shield = true;
+            vidaP2--;
+          }
         }
 
         //Verifica se houve colisão com um powerUps
+        //Vida
         for (var i = 0; i < life.length; i++) {
           if(life[i].bateu(player1)){
             life[i].x = 2000;
@@ -246,6 +315,23 @@
             life[i].x = 2000;
             life[i].y = 2000;
             vidaP2++;
+          }
+        }
+        //Escudo
+        for (var i = 0; i < shield.length; i++) {
+          if(shield[i].bateu(player1)){
+            shield[i].x = 2000;
+            shield[i].y = 2000;
+            player1.corEscudo = "#00FFFF";
+            player1.shield = true;
+            player1.shieldTime = 0;
+          }
+          if(shield[i].bateu(player2)){
+            shield[i].x = 2000;
+            shield[i].y = 2000;
+            player2.corEscudo = "#00FFFF";
+            player2.shield = true;
+            player2.shieldTime = 0;
           }
         }
 

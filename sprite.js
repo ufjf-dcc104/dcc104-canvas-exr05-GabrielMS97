@@ -12,6 +12,8 @@ function Sprite() {
 
   this.cor = "#1E90FF";
   this.cor2 = "#DC143C";
+  this.corEscudo = "white";
+  this.corEscudo2 = "#00FFFF";
 
   this.cadencia = 0.4;
   this.cadenciaTime = 0;
@@ -35,7 +37,7 @@ Sprite.prototype.desenharBarreira = function (ctx) {
 Sprite.prototype.desenharNave = function (ctx) {
     ctx.fillStyle = this.cor;
     //ctx.fillRect(this.x, this.y, this.larg, this.alt);
-    ctx.strokeStyle = "white";
+    ctx.strokeStyle = this.corEscudo;
     ctx.lineWidth = 3;
     ctx.save();
     ctx.translate(this.x + this.larg/2, this.y+this.alt/2);
