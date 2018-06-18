@@ -173,12 +173,15 @@
               tirosP1[i].y = 2000;
               tirosP1[i].vx = 0;
               tirosP1[i].vy = 0;
+              player2.ang = 180;
+              player2.x = 1030;
+              player2.y = 300;
+              player2.vx = 0;
+              player2.vy = 0;
               if(player2.shield){
                 player2.shieldTime = 200;
               }
               else {
-                player2.x = 1030;
-                player2.y = 300;
                 player2.corEscudo = "#00FFFF";
                 player2.shieldTime = 200;
                 player2.shield = true;
@@ -196,12 +199,15 @@
             tirosP2[i].y = 2000;
             tirosP2[i].vx = 0;
             tirosP2[i].vy = 0;
+            player1.ang = 0;
+            player1.x = 50;
+            player1.y = 300;
+            player1.vx = 0;
+            player1.vx = 0;
             if(player1.shield){
               player1.shieldTime = 200;
             }
             else {
-              player1.x = 50;
-              player1.y = 300;
               player1.corEscudo = "#00FFFF";
               player1.shieldTime = 200;
               player1.shield = true;
@@ -252,8 +258,11 @@
         for (var i = 0; i < barreiras.length; i++) {
           if(barreiras[i].colidiuComBarreira(player1))
           {
+            player1.ang = 0;
             player1.x = 50;
             player1.y = 300;
+            player1.vx = 0;
+            player1.vy = 0;
             if(player1.shield){
               player1.shieldTime = 200;
             }
@@ -268,8 +277,11 @@
           }
           if(barreiras[i].colidiuComBarreira(player2))
           {
+            player2.ang = 180;
             player2.x = 1030;
             player2.y = 300;
+            player2.vx = 0;
+            player2.vy = 0;
             if(player2.shield){
               player2.shieldTime = 200;
             }
@@ -287,8 +299,11 @@
         //Verifica se houve colisão entre as naves
         if(player1.bateu(player2))
         {
+          player1.ang = 0;
           player1.x = 50;
           player1.y = 300;
+          player1.vx = 0;
+          player1.vy = 0;
           if(player1.shield){
             player1.shieldTime = 200;
           }
@@ -300,8 +315,11 @@
             player1.cadencia = cadencia1;
             vidaP1--;
           }
+          player2.ang = 180;
           player2.x = 1030;
           player2.y = 300;
+          player2.vx = 0;
+          player2.vy = 0;
           if(player2.shield){
             player2.shieldTime = 200;
           }
@@ -408,21 +426,25 @@
           //Comandos player2
           case 37: // Seta p/ esquerda
             player2.vx = -200;
+            player2.vy = 0;
             player2.ang = 180;
             e.preventDefault();
             break;
           case 38: // Seta p/ cima
             player2.vy = -200;
+            player2.vx = 0;
             player2.ang = 270;
             e.preventDefault();
             break;
           case 39: // Seta p/ direita
             player2.vx = 200;
+            player2.vy = 0;
             player2.ang = 0;
             e.preventDefault();
             break;
           case 40: // Seta p/ baixo
             player2.vy = 200;
+            player2.vx = 0;
             player2.ang = 90;
             e.preventDefault();
             break;
@@ -464,28 +486,32 @@
             break;
           case 65: // Tecla 'A'
             player1.vx = -200;
+            player1.vy = 0;
             player1.ang = 180;
             e.preventDefault();
             break;
           case 68: // Tecla 'D'
             player1.vx = 200;
+            player1.vy = 0;
             player1.ang = 0;
             e.preventDefault();
             break;
           case 83: // Tecla 'S'
             player1.vy = 200;
+            player1.vx = 0;
             player1.ang = 90;
             e.preventDefault();
             break;
           case 87: // Tecla 'W'
             player1.vy = -200;
+            player1.vx = 0;
             player1.ang = 270;
             e.preventDefault();
             break;
           }
       });
 
-      addEventListener("keyup", function(e)
+      /*addEventListener("keyup", function(e)
       {
           //console.log(e.keyCode);
           if (e.keyCode === 38 || e.keyCode === 40)
@@ -508,7 +534,7 @@
             player1.vx = 0;
             e.preventDefault();
           }
-      });
+      });*/
 
     </script>
   </body>
