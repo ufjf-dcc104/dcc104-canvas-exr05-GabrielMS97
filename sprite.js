@@ -16,7 +16,6 @@ function Sprite() {
   this.corEscudo2 = "#00FFFF";
 
   this.cadencia = 0.4;
-  this.cadenciaTime = 0;
   this.shield = false;
   this.shieldTime = 0;
   this.bomba = false;

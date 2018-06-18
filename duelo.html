@@ -173,15 +173,17 @@
               tirosP1[i].y = 2000;
               tirosP1[i].vx = 0;
               tirosP1[i].vy = 0;
-              player2.x = 1030;
-              player2.y = 300;
               if(player2.shield){
                 player2.shieldTime = 200;
               }
               else {
+                player2.x = 1030;
+                player2.y = 300;
                 player2.corEscudo = "#00FFFF";
-                player2.shield = 200;
+                player2.shieldTime = 200;
                 player2.shield = true;
+                cadencia2 = 0.4;
+                player2.cadencia = cadencia2;
                 vidaP2--;
               }
           }
@@ -194,15 +196,17 @@
             tirosP2[i].y = 2000;
             tirosP2[i].vx = 0;
             tirosP2[i].vy = 0;
-            player1.x = 50;
-            player1.y = 300;
             if(player1.shield){
               player1.shieldTime = 200;
             }
             else {
+              player1.x = 50;
+              player1.y = 300;
               player1.corEscudo = "#00FFFF";
-              player1.shield = 200;
+              player1.shieldTime = 200;
               player1.shield = true;
+              cadencia1 = 0.4;
+              player1.cadencia = cadencia1;
               vidaP1--;
             }
           }
@@ -255,8 +259,10 @@
             }
             else {
               player1.corEscudo = "#00FFFF";
-              player1.shield = 200;
+              player1.shieldTime = 200;
               player1.shield = true;
+              cadencia1 = 0.4;
+              player1.cadencia = cadencia1;
               vidaP1--;
             }
           }
@@ -269,8 +275,10 @@
             }
             else {
               player2.corEscudo = "#00FFFF";
-              player2.shield = 200;
+              player2.shieldTime = 200;
               player2.shield = true;
+              cadencia2 = 0.4;
+              player2.cadencia = cadencia2;
               vidaP2--;
             }
           }
@@ -286,8 +294,10 @@
           }
           else {
             player1.corEscudo = "#00FFFF";
-            player1.shield = 200;
+            player1.shieldTime = 200;
             player1.shield = true;
+            cadencia1 = 0.4;
+            player1.cadencia = cadencia1;
             vidaP1--;
           }
           player2.x = 1030;
@@ -297,8 +307,10 @@
           }
           else {
             player2.corEscudo = "#00FFFF";
-            player2.shield = 200;
+            player2.shieldTime = 200;
             player2.shield = true;
+            cadencia2 = 0.4;
+            player2.cadencia = cadencia2;
             vidaP2--;
           }
         }
@@ -332,6 +344,21 @@
             player2.corEscudo = "#00FFFF";
             player2.shield = true;
             player2.shieldTime = 0;
+          }
+        }
+        //Arma
+        for (var i = 0; i < gun.length; i++) {
+          if(gun[i].bateu(player1)){
+            gun[i].x = 2000;
+            gun[i].y = 2000;
+            cadencia1 = 0.1;
+            player1.cadencia = cadencia1;
+          }
+          if(gun[i].bateu(player2)){
+            gun[i].x = 2000;
+            gun[i].y = 2000;
+            cadencia2 = 0.1;
+            player2.cadencia = cadencia2;
           }
         }
 
