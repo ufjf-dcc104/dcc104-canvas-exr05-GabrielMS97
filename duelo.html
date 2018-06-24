@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Duelo</title>
     <script src="sprite.js"></script>
+    <script src="ImageLibrary.js"></script>
   </head>
   <body>
     <h1>Duelo</h1>
@@ -24,13 +25,38 @@
       var life = [];
       var shield = [];
       var gun = [];
-      var bomb = [];
+
+      //variáveis das imagens
+      var imagens = new ImageLibrary();
+      imagens.load("fundo", "imagens/fundo.png");
+
+      imagens.load("vida", "imagens/powerUps/vida.png");
+      imagens.load("escudo", "imagens/powerUps/escudo.png");
+      imagens.load("arma", "imagens/powerUps/arma.png");
+
+      imagens.load("player1Frente", "imagens/player1/player1(0).png");
+      imagens.load("player1Cima", "imagens/player1/player1(90).png");
+      imagens.load("player1Tras", "imagens/player1/player1(180).png");
+      imagens.load("player1Baixo", "imagens/player1/player1(270).png");
+      imagens.load("player1FrenteShield", "imagens/player1/player1(0)shield.png");
+      imagens.load("player1CimaShield", "imagens/player1/player1(90)shield.png");
+      imagens.load("player1TrasShield", "imagens/player1/player1(180)shield.png");
+      imagens.load("player1BaixoShield", "imagens/player1/player1(270)shield.png");
+
+      imagens.load("player2Frente", "imagens/player2/player2(0).png");
+      imagens.load("player2Cima", "imagens/player2/player2(90).png");
+      imagens.load("player2Tras", "imagens/player2/player2(180).png");
+      imagens.load("player2Baixo", "imagens/player2/player2(270).png");
+      imagens.load("player2FrenteShield", "imagens/player2/player2(0)shield.png");
+      imagens.load("player2CimaShield", "imagens/player2/player2(90)shield.png");
+      imagens.load("player2TrasShield", "imagens/player2/player2(180)shield.png");
+      imagens.load("player2BaixoShield", "imagens/player2/player2(270)shield.png");
 
       //Variáveis das naves
       var player1 = new Sprite();
       var player2 = new Sprite();
-      player1.x = 50; player1.y = 300; player1.larg = 20; player1.alt = 20; player1.cor = "#1E90FF"; player1.ang = 0;
-      player2.x = 1030; player2.y = 300; player2.larg = 20; player2.alt = 20; player2.cor = "#DC143C"; player2.ang = 180;
+      player1.x = 50; player1.y = 285; player1.larg = 40; player1.alt = 40; player1.cor = "#1E90FF"; player1.ang = 0; player1.xSpawn = 50; player1.ySpawn = 285;
+      player2.x = 1010; player2.y = 285; player2.larg = 40; player2.alt = 40; player2.cor = "#DC143C"; player2.ang = 180; player2.xSpawn = 1010; player2.ySpawn = 285;
 
       //Criando as barreiras previamente
       function criaBarreiras() {
@@ -72,6 +98,7 @@
         ctx.fillStyle = "black";
         ctx.fillRect(0,0, tela.width, tela.height);
         ctx.font="20px Arial";
+        imagens.draw(ctx,"fundo", 0, 0);
         ctx.fillStyle = "#1E90FF";
         ctx.fillText("Player 1: " + vidaP1, 40,40);
         ctx.fillStyle = "#DC143C";
@@ -88,27 +115,22 @@
         //Desenha os powerUps
         if(passos >= 100)
         {
-          var numero = getRandomIntInclusive(1,4);
+          var numero = getRandomIntInclusive(1,3);
           switch (numero) {
             case 1:
               var vida = new Sprite();
               vida.x = getRandomIntInclusive(220,860); vida.y = getRandomIntInclusive(120,460);
-              vida.larg = 20; vida.alt = 20; vida.cor = "green"; life.push(vida);
+              vida.larg = 32; vida.alt = 32; vida.cor = "green"; life.push(vida);
               break;
             case 2:
               var escudo = new Sprite();
               escudo.x = getRandomIntInclusive(220,860); escudo.y = getRandomIntInclusive(120,460);
-              escudo.larg = 20; escudo.alt = 20; escudo.cor = "blue"; shield.push(escudo);
+              escudo.larg = 32; escudo.alt = 32; escudo.cor = "blue"; shield.push(escudo);
               break;
             case 3:
               var arma = new Sprite();
               arma.x = getRandomIntInclusive(220,860); arma.y = getRandomIntInclusive(120,460);
-              arma.larg = 20; arma.alt = 20; arma.cor = "yellow"; gun.push(arma);
-              break;
-            case 4:
-              var bomba = new Sprite();
-              bomba.x = getRandomIntInclusive(220,860); bomba.y = getRandomIntInclusive(120,460);
-              bomba.larg = 20; bomba.alt = 20; bomba.cor = "orange"; bomb.push(bomba);
+              arma.larg = 32; arma.alt = 32; arma.cor = "yellow"; gun.push(arma);
               break;
           }
           passos = 0;
@@ -174,8 +196,8 @@
               tirosP1[i].vx = 0;
               tirosP1[i].vy = 0;
               player2.ang = 180;
-              player2.x = 1030;
-              player2.y = 300;
+              player2.x = player2.xSpawn;
+              player2.y = player2.ySpawn;
               player2.vx = 0;
               player2.vy = 0;
               if(player2.shield){
@@ -200,8 +222,8 @@
             tirosP2[i].vx = 0;
             tirosP2[i].vy = 0;
             player1.ang = 0;
-            player1.x = 50;
-            player1.y = 300;
+            player1.x = player1.xSpawn;
+            player1.y = player1.ySpawn;
             player1.vx = 0;
             player1.vx = 0;
             if(player1.shield){
@@ -259,8 +281,8 @@
           if(barreiras[i].colidiuComBarreira(player1))
           {
             player1.ang = 0;
-            player1.x = 50;
-            player1.y = 300;
+            player1.x = player1.xSpawn;
+            player1.y = player1.ySpawn;
             player1.vx = 0;
             player1.vy = 0;
             if(player1.shield){
@@ -278,8 +300,8 @@
           if(barreiras[i].colidiuComBarreira(player2))
           {
             player2.ang = 180;
-            player2.x = 1030;
-            player2.y = 300;
+            player2.x = player2.xSpawn;
+            player2.y = player2.ySpawn;
             player2.vx = 0;
             player2.vy = 0;
             if(player2.shield){
@@ -300,8 +322,8 @@
         if(player1.bateu(player2))
         {
           player1.ang = 0;
-          player1.x = 50;
-          player1.y = 300;
+          player1.x = player1.xSpawn;
+          player1.y = player1.ySpawn;
           player1.vx = 0;
           player1.vy = 0;
           if(player1.shield){
@@ -316,8 +338,8 @@
             vidaP1--;
           }
           player2.ang = 180;
-          player2.x = 1030;
-          player2.y = 300;
+          player2.x = player2.xSpawn;
+          player2.y = player2.ySpawn;
           player2.vx = 0;
           player2.vy = 0;
           if(player2.shield){
@@ -388,8 +410,61 @@
         }
 
         //Desenha as naves
-        player1.desenharNave(ctx);
-        player2.desenharNave(ctx);
+        if(player1.shield){
+          if(player1.ang === 0){
+            player1.desenharNave(ctx,imagens.images["player1FrenteShield"]);
+          }
+          else if (player1.ang === 90) {
+            player1.desenharNave(ctx,imagens.images["player1BaixoShield"]);
+          }
+          else if (player1.ang === 180) {
+            player1.desenharNave(ctx,imagens.images["player1TrasShield"]);
+          }
+          else if (player1.ang === 270) {
+            player1.desenharNave(ctx,imagens.images["player1CimaShield"]);
+          }
+        }else{
+          if(player1.ang === 0){
+            player1.desenharNave(ctx,imagens.images["player1Frente"]);
+          }
+          else if (player1.ang === 90) {
+            player1.desenharNave(ctx,imagens.images["player1Baixo"]);
+          }
+          else if (player1.ang === 180) {
+            player1.desenharNave(ctx,imagens.images["player1Tras"]);
+          }
+          else if (player1.ang === 270) {
+            player1.desenharNave(ctx,imagens.images["player1Cima"]);
+          }
+        }
+
+        if(player2.shield){
+          if(player2.ang === 0){
+            player2.desenharNave(ctx,imagens.images["player2FrenteShield"]);
+          }
+          else if (player2.ang === 90) {
+            player2.desenharNave(ctx,imagens.images["player2BaixoShield"]);
+          }
+          else if (player2.ang === 180) {
+            player2.desenharNave(ctx,imagens.images["player2TrasShield"]);
+          }
+          else if (player2.ang === 270) {
+            player2.desenharNave(ctx,imagens.images["player2CimaShield"]);
+          }
+        }else{
+          if(player2.ang === 0){
+            player2.desenharNave(ctx,imagens.images["player2Frente"]);
+          }
+          else if (player2.ang === 90) {
+            player2.desenharNave(ctx,imagens.images["player2Baixo"]);
+          }
+          else if (player2.ang === 180) {
+            player2.desenharNave(ctx,imagens.images["player2Tras"]);
+          }
+          else if (player2.ang === 270) {
+            player2.desenharNave(ctx,imagens.images["player2Cima"]);
+          }
+        }
 
         //Desenha os tiros do player 1
         for (var i = 0; i < tirosP1.length; i++) {
@@ -402,16 +477,13 @@
 
         //Desenha os powerUps
         for (var i = 0; i < life.length; i++) {
-          life[i].desenharPowerUps();
+          life[i].desenharPowerUps(ctx,imagens.images["vida"]);
         }
         for (var i = 0; i < shield.length; i++) {
-          shield[i].desenharPowerUps();
+          shield[i].desenharPowerUps(ctx,imagens.images["escudo"]);
         }
         for (var i = 0; i < gun.length; i++) {
-          gun[i].desenharPowerUps();
-        }
-        for (var i = 0; i < bomb.length; i++) {
-          bomb[i].desenharPowerUps();
+          gun[i].desenharPowerUps(ctx,imagens.images["arma"]);
         }
 
         anterior = t;
@@ -452,8 +524,8 @@
           var tiro = new Sprite();
           if(player2.cadencia <= 0)
           {
-            tiro.x = player2.x + player2.larg/2;
-            tiro.y = player2.y + player2.alt/2;
+            tiro.x = player2.x + player2.larg/2 - 2;
+            tiro.y = player2.y + player2.alt/2 - 2;
             tiro.larg = 7;
             tiro.alt = 7;
             tiro.cor = "orange";
@@ -471,8 +543,8 @@
             var tiro = new Sprite();
             if(player1.cadencia <= 0)
             {
-              tiro.x = player1.x + player1.larg/2;
-              tiro.y = player1.y + player1.alt/2;
+              tiro.x = player1.x + player1.larg/2 - 2;
+              tiro.y = player1.y + player1.alt/2 - 2;
               tiro.larg = 7;
               tiro.alt = 7;
               tiro.cor = "yellow";

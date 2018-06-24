@@ -2,8 +2,11 @@ function Sprite() {
   //Variáveis dos sprites principais
   this.x = 100;
   this.y = 100;
-  this.larg = 20;
-  this.alt = 20;
+  this.larg = 40;
+  this.alt = 40;
+
+  this.xSpawn = 0;
+  this.ySpawn = 0;
 
   this.ang = 0;
 
@@ -33,8 +36,8 @@ Sprite.prototype.desenharBarreira = function (ctx) {
   ctx.fillRect(this.xB, this.yB, this.largB, this.altB);
 }
 
-Sprite.prototype.desenharNave = function (ctx) {
-    ctx.fillStyle = this.cor;
+Sprite.prototype.desenharNave = function (ctx,key) {
+    /*ctx.fillStyle = this.cor;
     //ctx.fillRect(this.x, this.y, this.larg, this.alt);
     ctx.strokeStyle = this.corEscudo;
     ctx.lineWidth = 3;
@@ -48,7 +51,12 @@ Sprite.prototype.desenharNave = function (ctx) {
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
-    ctx.restore();
+    ctx.restore();*/
+
+    //ctx.fillStyle = this.cor;
+    //ctx.fillRect(this.x,this.y, this.larg, this.alt);
+    ctx.drawImage(key, this.x, this.y);
+
 }
 
 Sprite.prototype.desenharTiro = function (ctx) {
@@ -88,7 +96,8 @@ Sprite.prototype.acertou = function (player) {
   return true;
 }
 
-Sprite.prototype.desenharPowerUps = function () {
-  ctx.fillStyle = this.cor;
-  ctx.fillRect(this.x, this.y, this.larg, this.alt);
+Sprite.prototype.desenharPowerUps = function (ctx, key) {
+  //ctx.fillStyle = this.cor;
+  //ctx.fillRect(this.x, this.y, this.larg, this.alt);
+  ctx.drawImage(key, this.x, this.y);
 }
