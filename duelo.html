@@ -5,6 +5,7 @@
     <title>Duelo</title>
     <script src="sprite.js"></script>
     <script src="ImageLibrary.js"></script>
+    <script src="AudioLibrary.js"></script>
   </head>
   <body>
     <h1>Duelo</h1>
@@ -51,6 +52,12 @@
       imagens.load("player2CimaShield", "imagens/player2/player2(90)shield.png");
       imagens.load("player2TrasShield", "imagens/player2/player2(180)shield.png");
       imagens.load("player2BaixoShield", "imagens/player2/player2(270)shield.png");
+
+      //Variáveis dos sons
+      var audios = new AudioLibrary();
+      audios.load("tiro", "sons/laser1.mp3");
+      audios.load("explosion", "sons/explosão-final.wav");
+      audios.load("bonus", "sons/bonus.wav");
 
       //Variáveis das naves
       var player1 = new Sprite();
@@ -113,7 +120,7 @@
         dt = (t - anterior)/1000;
 
         //Desenha os powerUps
-        if(passos >= 100)
+        if(passos >= 600)
         {
           var numero = getRandomIntInclusive(1,3);
           switch (numero) {
@@ -210,6 +217,7 @@
                 cadencia2 = 0.4;
                 player2.cadencia = cadencia2;
                 vidaP2--;
+                audios.play("explosion");
               }
           }
         }
@@ -236,6 +244,7 @@
               cadencia1 = 0.4;
               player1.cadencia = cadencia1;
               vidaP1--;
+              audios.play("explosion");
             }
           }
         }
@@ -295,6 +304,7 @@
               cadencia1 = 0.4;
               player1.cadencia = cadencia1;
               vidaP1--;
+              audios.play("explosion");
             }
           }
           if(barreiras[i].colidiuComBarreira(player2))
@@ -314,6 +324,7 @@
               cadencia2 = 0.4;
               player2.cadencia = cadencia2;
               vidaP2--;
+              audios.play("explosion");
             }
           }
         }
@@ -336,6 +347,7 @@
             cadencia1 = 0.4;
             player1.cadencia = cadencia1;
             vidaP1--;
+            audios.play("explosion");
           }
           player2.ang = 180;
           player2.x = player2.xSpawn;
@@ -352,6 +364,7 @@
             cadencia2 = 0.4;
             player2.cadencia = cadencia2;
             vidaP2--;
+            audios.play("explosion");
           }
         }
 
@@ -362,11 +375,13 @@
             life[i].x = 2000;
             life[i].y = 2000;
             vidaP1++;
+            audios.play("bonus");
           }
           if(life[i].bateu(player2)){
             life[i].x = 2000;
             life[i].y = 2000;
             vidaP2++;
+            audios.play("bonus");
           }
         }
         //Escudo
@@ -377,6 +392,7 @@
             player1.corEscudo = "#00FFFF";
             player1.shield = true;
             player1.shieldTime = 0;
+            audios.play("bonus");
           }
           if(shield[i].bateu(player2)){
             shield[i].x = 2000;
@@ -384,6 +400,7 @@
             player2.corEscudo = "#00FFFF";
             player2.shield = true;
             player2.shieldTime = 0;
+            audios.play("bonus");
           }
         }
         //Arma
@@ -393,12 +410,14 @@
             gun[i].y = 2000;
             cadencia1 = 0.1;
             player1.cadencia = cadencia1;
+            audios.play("bonus");
           }
           if(gun[i].bateu(player2)){
             gun[i].x = 2000;
             gun[i].y = 2000;
             cadencia2 = 0.1;
             player2.cadencia = cadencia2;
+            audios.play("bonus");
           }
         }
 
@@ -535,12 +554,14 @@
             else if(player2.ang === 270) {tiro.vy = -500; tiro.vx = 0}
             tirosP2.push(tiro);
             player2.cadencia = cadencia2;
+            audios.play("tiro");
           }
             break;
 
           //Comandos player1
           case 32: // Barra de espaço
             var tiro = new Sprite();
+
             if(player1.cadencia <= 0)
             {
               tiro.x = player1.x + player1.larg/2 - 2;
@@ -554,6 +575,7 @@
               else if(player1.ang === 270) {tiro.vy = -500; tiro.vx = 0}
               tirosP1.push(tiro);
               player1.cadencia = cadencia1;
+              audios.play("tiro");
             }
             break;
           case 65: // Tecla 'A'
